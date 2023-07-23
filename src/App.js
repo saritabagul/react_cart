@@ -1,6 +1,10 @@
+import CartItem  from "./CartItem";
+  
 function App() {
   return (
-    <h1>Cart</h1>
+    <div className="App">   
+      <CartItem />
+    </div>
   );
 }
 
