@@ -40,6 +40,7 @@ class App extends React.Component {
   }
 
   componentDidMount(){
+    /*
       firebase
         .firestore()
         .collection('products')
@@ -61,6 +62,25 @@ class App extends React.Component {
             loading:false
           })
         })
+    */
+   
+    /*-----keeping the firebase data in sync with ui -------------*/
+    firebase
+        .firestore()
+        .collection('products')      
+        .onSnapshot(snapshot => {
+          // console.log(snapshot);
+          const products =  snapshot.docs.map((doc)=>{
+            const data = doc.data();
+            data["id"] = doc.id;
+            return data;
+          });
+
+          this.setState({
+            products,
+            loading:false
+          })
+        })    
   }
 
 handleIncreaseQuantity = (product) =>{
