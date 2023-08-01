@@ -158,14 +158,26 @@ handleDecreaseQuantity = (product) =>{
 
 handleDeleteProduct = (id) =>{
     const {products} = this.state;
+    // const index = products.indexOf(id);
+    // const items = products.filter((item) => {
+    //     return item.id !== id
+    // });
 
-    const items = products.filter((item) => {
-        return item.id !== id
-    });
+    // this.setState({
+    //     products:items
+    // });
 
-    this.setState({
-        products:items
-    });
+   
+    const docRef = this.db.collection('products').doc(id);
+
+    docRef
+      .delete()
+      .then(()=>{
+        console.log('deleted successfully!');
+      })
+      .catch((error) => {
+        console.log('Error :', error);
+      })
 }
 
 getCartCount = () => {
