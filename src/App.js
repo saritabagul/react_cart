@@ -84,6 +84,7 @@ class App extends React.Component {
         })    
   }
 
+  /*----without firebase ------
 handleIncreaseQuantity = (product) =>{
     console.log('Inc qty',product);
 
@@ -97,6 +98,35 @@ handleIncreaseQuantity = (product) =>{
         products
     });
 }
+----------------------------*/
+
+// ----------with firebase----------------
+handleIncreaseQuantity = (product) =>{
+  // console.log('Inc qty',product);
+
+  const{products} = this.state;            
+  const index = products.indexOf(product);
+
+  // products[index].qty += 1;
+
+  // this.setState({
+  //     products
+  // });
+
+  const docRef = this.db.collection('products').doc(products[index].id);
+
+  docRef
+    .update({
+      qty:products[index].qty + 1
+    })
+    .then(()=>{
+      console.log('updated successfully!');
+    })
+    .catch((error) => {
+      console.log('Error :', error);
+    })
+
+}
 
 handleDecreaseQuantity = (product) =>{
     // console.log('Inc qty',product);
@@ -106,11 +136,24 @@ handleDecreaseQuantity = (product) =>{
     if(products[index].qty === 0){
        return;
     }
-    products[index].qty -= 1;
-    this.setState({
-        // products:products  //or
-        products
-    });
+    // products[index].qty -= 1;
+    // this.setState({
+    //     // products:products  //or
+    //     products
+    // });
+
+    const docRef = this.db.collection('products').doc(products[index].id);
+
+    docRef
+      .update({
+        qty:products[index].qty - 1
+      })
+      .then(()=>{
+        console.log('updated successfully!');
+      })
+      .catch((error) => {
+        console.log('Error :', error);
+      })
 }
 
 handleDeleteProduct = (id) =>{
