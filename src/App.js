@@ -204,7 +204,7 @@ addProduct = () =>{
   this.db
     .collection('products')
     .add({
-      title:"Wasing machine",
+      title:"Washing machine",
       qty:5,
       price:20000,
       img:''
